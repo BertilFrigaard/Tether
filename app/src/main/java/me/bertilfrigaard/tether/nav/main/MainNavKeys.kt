@@ -10,6 +10,9 @@ sealed interface MainNavKey : NavKey
 data object Home : MainNavKey
 
 @Serializable
+data object ViewBlocks : MainNavKey
+
+@Serializable
 data object CreateBlock : MainNavKey {
 
     @Serializable

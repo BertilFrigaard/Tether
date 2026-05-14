@@ -17,7 +17,7 @@ import me.bertilfrigaard.tether.ui.screens.home.components.HomeTopAppBar
 import me.bertilfrigaard.tether.ui.theme.TetherTheme
 
 @Composable
-fun HomeScreenContent(state: HomeUiState, goToCreateBlock: () -> Unit) {
+fun HomeScreenContent(state: HomeUiState, goToCreateBlock: () -> Unit, goToViewBlocks: () -> Unit) {
     Scaffold(
         topBar = {
             HomeTopAppBar()
@@ -48,14 +48,8 @@ fun HomeScreenContent(state: HomeUiState, goToCreateBlock: () -> Unit) {
                 actionTitle = "View blocks",
                 actionDescription = "View or edit your blocks",
                 style = ActionButtonSurface,
-                onClick = {TODO()}
+                onClick = goToViewBlocks
             )
         }
     }
-}
-
-@Preview(showBackground = false)
-@Composable
-fun Preview() {
-    TetherTheme { HomeScreenContent(HomeUiState("123"), {}) }
 }

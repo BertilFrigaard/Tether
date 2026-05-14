@@ -1,6 +1,5 @@
 package me.bertilfrigaard.tether.nav.main
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -10,12 +9,12 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
-import androidx.navigation3.scene.rememberSceneState
 import androidx.navigation3.ui.NavDisplay
 import me.bertilfrigaard.tether.ui.screens.createblock.CreateBlockViewModel
 import me.bertilfrigaard.tether.ui.screens.createblock.selectapps.SelectAppsScreen
 import me.bertilfrigaard.tether.ui.screens.createblock.setupblock.SetupBlockScreen
 import me.bertilfrigaard.tether.ui.screens.home.HomeScreen
+import me.bertilfrigaard.tether.ui.screens.viewblocks.ViewBlocksScreen
 
 @Composable
 fun MainNavDisplay(modifier: Modifier = Modifier) {
@@ -32,7 +31,13 @@ fun MainNavDisplay(modifier: Modifier = Modifier) {
             entry<Home> {
                 HomeScreen(
                     vm = viewModel(),
-                    goToCreateBlock = { rootBackStack.pushMaxOne(CreateBlock) })
+                    goToCreateBlock = { rootBackStack.pushMaxOne(CreateBlock) },
+                    goToViewBlocks = { rootBackStack.pushMaxOne(ViewBlocks) })
+            }
+            entry<ViewBlocks> {
+                ViewBlocksScreen(
+                    vm = viewModel()
+                )
             }
             entry<CreateBlock> {
                 val createBlockBackStack = rememberNavBackStack(CreateBlock.SetupBlock)

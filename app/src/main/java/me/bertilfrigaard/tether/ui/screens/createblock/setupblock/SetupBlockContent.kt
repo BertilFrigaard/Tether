@@ -36,7 +36,8 @@ fun SetupBlockContent(
     setAllowPass: (Boolean) -> Unit,
     setDelayPassGrant: (Int) -> Unit,
     setMaxPassLength: (Int) -> Unit,
-    setPassCooldown: (Int) -> Unit
+    setPassCooldown: (Int) -> Unit,
+    createBlock: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -64,7 +65,7 @@ fun SetupBlockContent(
                         Spacer(Modifier.height(8.dp))
                         AppsSelector(
                             selectedApps = sharedState.selectedApps,
-                            blockName = sharedState.blockName,
+                            blockName = "?",
                             onChangeSelection = goToSelectApps
                         )
                     }
@@ -113,7 +114,7 @@ fun SetupBlockContent(
                 }
                 WideFloatingButton(
                     text = "Create block",
-                    onClick = { },
+                    onClick = createBlock,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(vertical = 16.dp)
