@@ -1,20 +1,66 @@
 package me.bertilfrigaard.tether.ui.screens.createblock.selectapps
 
+import android.graphics.drawable.Drawable
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import me.bertilfrigaard.tether.MainActivity
+import me.bertilfrigaard.tether.MainApplication
+import me.bertilfrigaard.tether.data.model.AppInfo
 
 data class SelectAppsUiState(
-    val test: String = "Default Value"
+    val searchQuery: String = "",
+    val selectableApps: List<AppInfo> = emptyList(),
+    val appIcons: Map<String, Drawable?> = emptyMap(),
+    val loadingSelectableApps: Boolean = true
 )
 
 class SelectAppsViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(SelectAppsUiState())
     val uiState: StateFlow<SelectAppsUiState> = _uiState.asStateFlow()
 
-    fun updateTest(test: String) {
-        _uiState.update { it.copy(test = test) }
+    private val installedAppsDataSource = MainApplication.instance.installedAppsDataSource
+    private val appIconsDataSource = MainApplication.instance.appIconsDataSource
+    private var installedApps: List<AppInfo> = emptyList()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            val apps = installedAppsDataSource.getLaunchableApps()
+            installedApps = apps
+            updateSelectableApps()
+
+            for (app in apps) {
+                launch {
+                    val icon = appIconsDataSource.getIcon(app.packageName)
+                    _uiState.update { it.copy(appIcons = it.appIcons + (app.packageName to icon)) }
+                }
+            }
+        }
+    }
+
+    private fun updateSelectableApps() {
+        // TODO: Remove already blocked apps from list before setting selectableApps
+        _uiState.update {
+            it.copy(
+                selectableApps =
+                installedApps
+                    .filter { app ->
+                        app.appLabel.lowercase().contains(_uiState.value.searchQuery)
+                    }
+                    .sortedBy { app -> app.appLabel },
+                loadingSelectableApps = false
+            )
+        }
+    }
+
+    fun updateSearchQuery(query: String) {
+        _uiState.update { it.copy(searchQuery = query) }
+        updateSelectableApps()
     }
 }

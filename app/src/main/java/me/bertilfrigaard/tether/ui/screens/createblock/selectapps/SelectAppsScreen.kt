@@ -7,5 +7,5 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun SelectAppsScreen(vm: SelectAppsViewModel, goBack: () -> Unit) {
     val state by vm.uiState.collectAsStateWithLifecycle()
-    SelectAppsContent(state, goBack)
+    SelectAppsContent(state = state, updateSearchQuery = vm::updateSearchQuery, goBack = goBack)
 }
