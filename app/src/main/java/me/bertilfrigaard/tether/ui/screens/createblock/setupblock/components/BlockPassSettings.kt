@@ -89,7 +89,7 @@ fun BlockPassSettings(
                 thickness = 1.dp,
                 modifier = Modifier.padding(top = 12.dp, bottom = 4.dp)
             )
-            StepperSubSection(delayPassGrant, setDelayPassGrant, "Delay pass grant", "Minutes before a pass is granted")
+            StepperSubSection(delayPassGrant, setDelayPassGrant, "Delay pass grant", "Seconds before a pass is granted")
             HorizontalDivider(
                 color = TetherTheme.colors.hairline,
                 thickness = 1.dp,

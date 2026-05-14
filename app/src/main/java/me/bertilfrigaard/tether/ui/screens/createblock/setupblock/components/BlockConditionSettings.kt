@@ -34,22 +34,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import me.bertilfrigaard.tether.R
+import me.bertilfrigaard.tether.data.model.BlockCondition
 import me.bertilfrigaard.tether.ui.components.input.StepperInput
 import me.bertilfrigaard.tether.ui.theme.TetherTheme
 
-enum class BlockConditions(val label: String) {
-    ON_FIRST_OPEN("Always intervene"),
-    AFTER_DAILY_USAGE_LIMIT("After daily usage limit is hit")
-}
-
 @Composable
 fun BlockConditionSettings(
-    selectedCondition: BlockConditions,
-    setSelectCondition: (BlockConditions) -> Unit,
+    selectedCondition: BlockCondition,
+    setSelectCondition: (BlockCondition) -> Unit,
     dailyUsage: Int,
     setDailyUsage: (Int) -> Unit
 ) {
-
     var showDropdown by remember { mutableStateOf(false) }
 
     Column(
@@ -57,7 +52,7 @@ fun BlockConditionSettings(
             .fillMaxWidth()
             .clip(
                 RoundedCornerShape(
-                    if (selectedCondition == BlockConditions.AFTER_DAILY_USAGE_LIMIT) {
+                    if (selectedCondition == BlockCondition.AFTER_DAILY_USAGE_LIMIT) {
                         5
                     } else {
                         10
@@ -124,7 +119,7 @@ fun BlockConditionSettings(
             shape = RoundedCornerShape(15.dp),
             shadowElevation = 0.dp
         ) {
-            for (condition in BlockConditions.entries) {
+            for (condition in BlockCondition.entries) {
                 DropdownMenuItem(
                     text = { Text(condition.label) },
                     onClick = {
@@ -135,7 +130,7 @@ fun BlockConditionSettings(
             }
         }
 
-        if (selectedCondition == BlockConditions.AFTER_DAILY_USAGE_LIMIT) {
+        if (selectedCondition == BlockCondition.AFTER_DAILY_USAGE_LIMIT) {
             HorizontalDivider(
                 color = TetherTheme.colors.hairline,
                 thickness = 1.dp,
@@ -149,6 +144,4 @@ fun BlockConditionSettings(
             )
         }
     }
-
-
 }

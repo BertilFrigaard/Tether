@@ -5,11 +5,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import me.bertilfrigaard.tether.ui.screens.createblock.setupblock.components.BlockConditions
+import me.bertilfrigaard.tether.data.model.BlockCondition
 import kotlin.math.max
 
 data class SetupBlockUiState(
-    val selectedCondition: BlockConditions = BlockConditions.ON_FIRST_OPEN,
+    val selectedCondition: BlockCondition = BlockCondition.ON_FIRST_OPEN,
     val dailyUsage: Int = 10,
 
     val allowPass: Boolean = false,
@@ -22,7 +22,7 @@ class SetupBlockViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(SetupBlockUiState())
     val uiState: StateFlow<SetupBlockUiState> = _uiState.asStateFlow()
 
-    fun setSelectedCondition(condition: BlockConditions) {
+    fun setSelectedCondition(condition: BlockCondition) {
         _uiState.update { it.copy(selectedCondition = condition) }
     }
 
