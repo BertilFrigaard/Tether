@@ -20,6 +20,7 @@ import me.bertilfrigaard.tether.data.model.AppInfo
 import me.bertilfrigaard.tether.ui.components.PageTopAppBar
 import me.bertilfrigaard.tether.ui.components.ScreenContent
 import me.bertilfrigaard.tether.ui.components.input.SearchBar
+import me.bertilfrigaard.tether.ui.components.input.WideFloatingButton
 import me.bertilfrigaard.tether.ui.screens.createblock.selectapps.components.AppRow
 import me.bertilfrigaard.tether.ui.screens.createblock.setupblock.SetupBlockContent
 import me.bertilfrigaard.tether.ui.screens.createblock.setupblock.SetupBlockUiState
@@ -29,8 +30,10 @@ import me.bertilfrigaard.tether.ui.theme.TetherTheme
 @Composable
 fun SelectAppsContent(
     state: SelectAppsUiState,
+    setSelected: (AppInfo, Boolean) -> Unit,
     updateSearchQuery: (String) -> Unit,
-    goBack: () -> Unit
+    goBack: () -> Unit,
+    confirmSelection: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -41,18 +44,35 @@ fun SelectAppsContent(
 
             SearchBar(state.searchQuery, updateSearchQuery)
 
-            if (state.loadingSelectableApps) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) { CircularProgressIndicator() }
-            } else {
-                LazyColumn() {
-                    items(state.selectableApps, key = { it.packageName }) {
-                        val icon = state.appIcons[it.packageName]
-                        AppRow(it, icon, false, {})
+            Box(modifier = Modifier.fillMaxSize()) {
+                if (state.loadingSelectableApps) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) { CircularProgressIndicator() }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    ) {
+                        items(state.selectableApps, key = { it.packageName }) {
+                            val icon = state.appIcons[it.packageName]
+                            AppRow(
+                                it,
+                                icon,
+                                state.selectedApps.contains(it),
+                                setSelected = { selected -> setSelected(it, selected) })
+                        }
+                        item { Spacer(Modifier.height(100.dp)) }
                     }
                 }
+
+                WideFloatingButton(
+                    text = "Select ${state.selectedApps.size} apps",
+                    onClick = confirmSelection,
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(vertical = 16.dp)
+                )
             }
         }
     }
@@ -64,10 +84,15 @@ fun Preview() {
     TetherTheme {
         SelectAppsContent(
             SelectAppsUiState(
-                loadingSelectableApps = false, selectableApps =listOf(
+                loadingSelectableApps = false, selectableApps = listOf(
                     AppInfo("123", "Google")
                 ),
                 appIcons = mapOf("123" to null)
-            ), updateSearchQuery = {}, goBack = {})
+            ),
+            updateSearchQuery = {},
+            setSelected = { a, b -> },
+            goBack = {},
+            confirmSelection = {}
+        )
     }
 }

@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import me.bertilfrigaard.tether.data.model.AppInfo
@@ -43,11 +45,13 @@ fun AppRow(appInfo: AppInfo, icon: Drawable?, selected: Boolean, setSelected: (B
                     .padding(6.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = appInfo.appLabel[0].toString(),
-                    style = TetherTheme.typography.bodyEmphasis,
-                    color = TetherTheme.colors.ink
-                )
+                if (appInfo.appLabel.isNotEmpty()) {
+                    Text(
+                        text = appInfo.appLabel[0].toString(),
+                        style = TetherTheme.typography.bodyEmphasis,
+                        color = TetherTheme.colors.ink
+                    )
+                }
             }
         } else {
             AsyncImage(
@@ -70,6 +74,14 @@ fun AppRow(appInfo: AppInfo, icon: Drawable?, selected: Boolean, setSelected: (B
             )
         }
         Spacer(Modifier.weight(1f))
-        Switch(selected, setSelected)
+        Switch(
+            selected,
+            setSelected,
+            colors = SwitchDefaults.colors(
+                uncheckedBorderColor = Color.Transparent,
+                uncheckedTrackColor = TetherTheme.colors.surface2,
+                uncheckedThumbColor = TetherTheme.colors.surface
+            )
+        )
     }
 }

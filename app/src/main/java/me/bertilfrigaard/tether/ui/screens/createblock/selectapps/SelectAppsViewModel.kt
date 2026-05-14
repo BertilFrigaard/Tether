@@ -18,6 +18,7 @@ data class SelectAppsUiState(
     val searchQuery: String = "",
     val selectableApps: List<AppInfo> = emptyList(),
     val appIcons: Map<String, Drawable?> = emptyMap(),
+    val selectedApps: List<AppInfo> = emptyList(),
     val loadingSelectableApps: Boolean = true
 )
 
@@ -49,11 +50,11 @@ class SelectAppsViewModel : ViewModel() {
         _uiState.update {
             it.copy(
                 selectableApps =
-                installedApps
-                    .filter { app ->
-                        app.appLabel.lowercase().contains(_uiState.value.searchQuery)
-                    }
-                    .sortedBy { app -> app.appLabel },
+                    installedApps
+                        .filter { app ->
+                            app.appLabel.lowercase().contains(_uiState.value.searchQuery)
+                        }
+                        .sortedBy { app -> app.appLabel },
                 loadingSelectableApps = false
             )
         }
@@ -62,5 +63,17 @@ class SelectAppsViewModel : ViewModel() {
     fun updateSearchQuery(query: String) {
         _uiState.update { it.copy(searchQuery = query) }
         updateSelectableApps()
+    }
+
+    fun setAppSelected(app: AppInfo, selected: Boolean) {
+        if (selected) {
+            _uiState.update { it.copy(selectedApps = it.selectedApps + app) }
+        } else {
+            _uiState.update { it.copy(selectedApps = it.selectedApps - app) }
+        }
+    }
+
+    fun setSelectedApps(apps: List<AppInfo>) {
+        _uiState.update { it.copy(selectedApps = apps) }
     }
 }
