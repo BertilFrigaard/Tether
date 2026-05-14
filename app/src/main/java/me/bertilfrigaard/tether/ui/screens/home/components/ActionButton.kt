@@ -86,12 +86,18 @@ data object ActionButtonSurface : ActionButtonStyle {
 }
 
 @Composable
-fun ActionButton(@DrawableRes actionDrawable: Int, actionTitle: String, actionDescription: String, style: ActionButtonStyle = ActionButtonPrimary) {
-    Button (
+fun ActionButton(
+    @DrawableRes actionDrawable: Int,
+    actionTitle: String,
+    actionDescription: String,
+    style: ActionButtonStyle = ActionButtonPrimary,
+    onClick: () -> Unit
+) {
+    Button(
         colors = ButtonDefaults.buttonColors(containerColor = style.containerColor),
         border = style.border,
         shape = RoundedCornerShape(20),
-        onClick = {}
+        onClick = onClick
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

@@ -1,12 +1,11 @@
-package me.bertilfrigaard.tether.ui.screens.home
+package me.bertilfrigaard.tether.ui.screens.createblock.selectapps
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun HomeScreen(vm: HomeViewModel, goToCreateBlock: () -> Unit) {
+fun SelectAppsScreen(vm: SelectAppsViewModel, goBack: () -> Unit) {
     val state by vm.uiState.collectAsStateWithLifecycle()
-    HomeScreenContent(state, goToCreateBlock)
+    SelectAppsContent(state, goBack)
 }

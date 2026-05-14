@@ -8,3 +8,13 @@ sealed interface MainNavKey : NavKey
 
 @Serializable
 data object Home : MainNavKey
+
+@Serializable
+data object CreateBlock : MainNavKey {
+
+    @Serializable
+    data object SetupBlock : MainNavKey
+
+    @Serializable
+    data object SelectApps : MainNavKey
+}
