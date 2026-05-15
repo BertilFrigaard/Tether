@@ -15,7 +15,9 @@ data class SetupBlockUiState(
     val allowPass: Boolean = false,
     val delayPassGrant: Int = 20,
     val maxPassLength: Int = 30,
-    val passCooldown: Int = 60
+    val passCooldown: Int = 60,
+
+    val name: String = ""
 )
 
 class SetupBlockViewModel : ViewModel() {
@@ -44,5 +46,9 @@ class SetupBlockViewModel : ViewModel() {
 
     fun setPassCooldown(cooldown: Int) {
         _uiState.update { it.copy(passCooldown = max(cooldown, 0)) }
+    }
+
+    fun setName(name: String) {
+        _uiState.update { it.copy(name = name) }
     }
 }

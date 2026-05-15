@@ -1,12 +1,8 @@
 package me.bertilfrigaard.tether.ui.screens.app.createblock.setupblock
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import me.bertilfrigaard.tether.data.model.Block
 import me.bertilfrigaard.tether.ui.screens.app.createblock.CreateBlockViewModel
 
 @Composable
@@ -29,6 +25,8 @@ fun SetupBlockScreen(
         vm::setAllowPass,
         vm::setDelayPassGrant,
         vm::setMaxPassLength,
-        vm::setPassCooldown
-    ) { sharedVm.createBlock(state); goBack() }
+        vm::setPassCooldown,
+        { sharedVm.createBlock(state); goBack() },
+        vm::setName
+    )
 }

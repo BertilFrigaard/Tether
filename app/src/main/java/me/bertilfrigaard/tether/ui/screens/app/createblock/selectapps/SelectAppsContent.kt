@@ -3,14 +3,12 @@ package me.bertilfrigaard.tether.ui.screens.app.createblock.selectapps
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,9 +20,6 @@ import me.bertilfrigaard.tether.ui.components.ScreenContent
 import me.bertilfrigaard.tether.ui.components.input.SearchBar
 import me.bertilfrigaard.tether.ui.components.input.WideFloatingButton
 import me.bertilfrigaard.tether.ui.screens.app.createblock.selectapps.components.AppRow
-import me.bertilfrigaard.tether.ui.screens.app.createblock.setupblock.SetupBlockContent
-import me.bertilfrigaard.tether.ui.screens.app.createblock.setupblock.SetupBlockUiState
-import me.bertilfrigaard.tether.ui.screens.app.createblock.setupblock.components.AppsSelector
 import me.bertilfrigaard.tether.ui.theme.TetherTheme
 
 @Composable
@@ -75,24 +70,5 @@ fun SelectAppsContent(
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = false)
-@Composable
-fun Preview() {
-    TetherTheme {
-        SelectAppsContent(
-            SelectAppsUiState(
-                loadingSelectableApps = false, selectableApps = listOf(
-                    AppInfo("123", "Google")
-                ),
-                appIcons = mapOf("123" to null)
-            ),
-            updateSearchQuery = {},
-            setSelected = { a, b -> },
-            goBack = {},
-            confirmSelection = {}
-        )
     }
 }

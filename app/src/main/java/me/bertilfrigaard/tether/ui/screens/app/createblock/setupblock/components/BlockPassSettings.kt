@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Switch
@@ -38,11 +35,14 @@ fun BlockPassSettings(
     passCooldown: Int,
     setPassCooldown: (Int) -> Unit
 ) {
+    val columnShape = RoundedCornerShape(if (allowPass) {3} else {10})
+
     Column (
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(if (allowPass) {3} else {10}))
+            .clip(columnShape)
             .background(TetherTheme.colors.surface)
+            .border(BorderStroke(1.dp, TetherTheme.colors.hairline), columnShape)
             .padding(
                 vertical = 16.dp, horizontal = ButtonDefaults.ContentPadding.calculateEndPadding(
                     LayoutDirection.Ltr

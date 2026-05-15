@@ -13,8 +13,7 @@ import me.bertilfrigaard.tether.data.model.Block
 import me.bertilfrigaard.tether.ui.screens.app.createblock.setupblock.SetupBlockUiState
 
 data class CreateBlockUiState(
-    val selectedApps: List<AppInfo> = emptyList(),
-    var isCreating: Boolean = false
+    val selectedApps: List<AppInfo> = emptyList(), var isCreating: Boolean = false
 )
 
 class CreateBlockViewModel : ViewModel() {
@@ -28,8 +27,16 @@ class CreateBlockViewModel : ViewModel() {
 
     fun createBlock(setup: SetupBlockUiState) {
         _uiState.update { it.copy(isCreating = true) }
+        val name = setup.name.ifEmpty {
+            if (_uiState.value.selectedApps.size == 1) {
+                _uiState.value.selectedApps[0].appLabel
+            } else {
+                "Unnamed block"
+            }
+        }
+
         val block = Block(
-            name = "?",
+            name = name,
             enabled = true,
             blockCondition = setup.selectedCondition,
             dailyUsageLimit = setup.dailyUsage,
@@ -37,8 +44,7 @@ class CreateBlockViewModel : ViewModel() {
             delayPassGrant = setup.delayPassGrant,
             maxPassLength = setup.maxPassLength,
             passCooldown = setup.passCooldown,
-            packageNames = _uiState.value.selectedApps.map { it.packageName }
-        )
+            packageNames = _uiState.value.selectedApps.map { it.packageName })
 
         viewModelScope.launch {
             blockRepository.createBlock(block)

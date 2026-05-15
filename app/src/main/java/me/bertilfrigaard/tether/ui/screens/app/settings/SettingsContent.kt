@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.compose.LifecycleResumeEffect
 import me.bertilfrigaard.tether.ui.components.PageTopAppBar
 import me.bertilfrigaard.tether.ui.components.ScreenContent
 import me.bertilfrigaard.tether.ui.theme.TetherTheme

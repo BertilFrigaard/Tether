@@ -1,6 +1,5 @@
 package me.bertilfrigaard.tether.ui.screens.app.settings
 
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

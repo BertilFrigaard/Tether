@@ -1,6 +1,5 @@
 package me.bertilfrigaard.tether.ui.screens.app.createblock.setupblock.components
 
-import android.view.MenuItem
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,20 +13,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -35,7 +31,6 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import me.bertilfrigaard.tether.R
 import me.bertilfrigaard.tether.data.model.BlockCondition
-import me.bertilfrigaard.tether.ui.components.input.StepperInput
 import me.bertilfrigaard.tether.ui.theme.TetherTheme
 
 @Composable
@@ -47,18 +42,18 @@ fun BlockConditionSettings(
 ) {
     var showDropdown by remember { mutableStateOf(false) }
 
+    val columnShape = RoundedCornerShape(
+        if (selectedCondition == BlockCondition.AFTER_DAILY_USAGE_LIMIT) {
+            5
+        } else {
+            10
+        }
+    )
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(
-                RoundedCornerShape(
-                    if (selectedCondition == BlockCondition.AFTER_DAILY_USAGE_LIMIT) {
-                        5
-                    } else {
-                        10
-                    }
-                )
-            )
+            .clip(columnShape)
+            .border(BorderStroke(1.dp, TetherTheme.colors.hairline), columnShape)
             .background(TetherTheme.colors.surface)
             .padding(
                 vertical = 16.dp, horizontal = ButtonDefaults.ContentPadding.calculateEndPadding(

@@ -7,7 +7,6 @@ import me.bertilfrigaard.tether.data.source.AppIconsDataSource
 import me.bertilfrigaard.tether.data.source.AppPermissionsDataSource
 import me.bertilfrigaard.tether.data.source.InstalledAppsDataSource
 import me.bertilfrigaard.tether.data.source.UsageStatsDataSource
-import kotlin.getValue
 
 class MainApplication : Application() {
     override fun onCreate() {

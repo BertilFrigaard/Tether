@@ -1,6 +1,5 @@
 package me.bertilfrigaard.tether.ui.screens.app.createblock.setupblock
 
-import android.widget.Space
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.bertilfrigaard.tether.data.model.BlockCondition
 import me.bertilfrigaard.tether.ui.components.PageTopAppBar
@@ -37,7 +35,8 @@ fun SetupBlockContent(
     setDelayPassGrant: (Int) -> Unit,
     setMaxPassLength: (Int) -> Unit,
     setPassCooldown: (Int) -> Unit,
-    createBlock: () -> Unit
+    createBlock: () -> Unit,
+    setName: (String) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -65,7 +64,7 @@ fun SetupBlockContent(
                         Spacer(Modifier.height(8.dp))
                         AppsSelector(
                             selectedApps = sharedState.selectedApps,
-                            blockName = "?",
+                            blockName = state.name.ifEmpty { "Unnamed block" },
                             onChangeSelection = goToSelectApps
                         )
                     }
@@ -78,7 +77,10 @@ fun SetupBlockContent(
                         )
 
                         Spacer(Modifier.height(8.dp))
-                        BlockPersonalizer()
+                        BlockPersonalizer(
+                            name = state.name,
+                            setName = setName
+                        )
                     }
                     item {
                         Spacer(Modifier.height(10.dp))
