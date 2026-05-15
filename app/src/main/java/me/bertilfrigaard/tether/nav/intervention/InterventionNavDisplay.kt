@@ -8,8 +8,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import me.bertilfrigaard.tether.nav.main.Home
-import me.bertilfrigaard.tether.ui.screens.home.HomeScreen
 import me.bertilfrigaard.tether.ui.screens.intervention.interventionhome.InterventionHomeScreen
 
 @Composable
