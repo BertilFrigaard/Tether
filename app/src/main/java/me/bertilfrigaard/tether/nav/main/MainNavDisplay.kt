@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import me.bertilfrigaard.tether.nav.popOneMinOne
+import me.bertilfrigaard.tether.nav.pushMaxOne
 import me.bertilfrigaard.tether.ui.screens.createblock.CreateBlockViewModel
 import me.bertilfrigaard.tether.ui.screens.createblock.selectapps.SelectAppsScreen
 import me.bertilfrigaard.tether.ui.screens.createblock.setupblock.SetupBlockScreen
@@ -68,12 +68,4 @@ fun MainNavDisplay(modifier: Modifier = Modifier) {
             }
         }
     )
-}
-
-private fun <T : NavKey> NavBackStack<T>.pushMaxOne(route: T) {
-    if (lastOrNull() != route) add(route)
-}
-
-private fun <T : NavKey> NavBackStack<T>.popOneMinOne() {
-    if (size > 1) removeLastOrNull()
 }

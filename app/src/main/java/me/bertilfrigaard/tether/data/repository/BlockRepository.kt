@@ -14,6 +14,8 @@ class BlockRepository(
 ) {
     fun observeBlocks(): Flow<List<Block>> = db.blockDao().observeAll().map { blocks -> blocks.map { it.toDomain() } }
 
+    suspend fun getBlock(pkg: String): Block? = db.blockDao().getBlockByPackageName(pkg)?.toDomain()
+
     suspend fun createBlock(block: Block): Long = db.withTransaction {
         val blockId = db.blockDao().insert(block.toEntity())
         if (block.packageNames.isNotEmpty()) {

@@ -17,6 +17,10 @@ interface BlockDao {
     @Query("SELECT * FROM blocks WHERE id = :id")
     fun observeById(id: Long): Flow<BlockWithMembers?>
 
+    @Transaction
+    @Query("SELECT * FROM blocks WHERE id IN (SELECT blockId FROM block_members WHERE packageName = :packageName)")
+    suspend fun getBlockByPackageName(packageName: String): BlockWithMembers?
+
     @Insert
     suspend fun insert(block: BlockEntity): Long
 
