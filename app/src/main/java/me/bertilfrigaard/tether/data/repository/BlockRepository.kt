@@ -25,4 +25,6 @@ class BlockRepository(
         }
         blockId
     }
+
+    suspend fun deleteBlock(id: Long) = db.blockDao().delete(id)
 }

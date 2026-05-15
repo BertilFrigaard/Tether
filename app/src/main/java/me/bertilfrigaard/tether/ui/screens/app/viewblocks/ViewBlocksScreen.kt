@@ -7,5 +7,5 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun ViewBlocksScreen(vm: ViewBlocksViewModel) {
     val state by vm.uiState.collectAsStateWithLifecycle()
-    ViewBlocksContent(state)
+    ViewBlocksContent(state, vm::deleteBlock)
 }

@@ -25,4 +25,11 @@ class ViewBlocksViewModel : ViewModel() {
                 .collect { blocks -> _uiState.update { it.copy(blocks = blocks) } }
         }
     }
+
+    fun deleteBlock(block: Block) {
+        viewModelScope.launch {
+            blockRepository.deleteBlock(block.id)
+        }
+        _uiState.update { it.copy(blocks = it.blocks - block) }
+    }
 }
