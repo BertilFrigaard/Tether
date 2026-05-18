@@ -17,7 +17,7 @@ class InterventionActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TetherTheme {
-                InterventionNavDisplay()
+                InterventionNavDisplay(pkg = pkg, onFinished = { finishAndRemoveTask() })
             }
         }
     }

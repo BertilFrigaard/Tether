@@ -42,6 +42,15 @@ class DetectionService : Service() {
 
                 if (block?.enabled == true) {
                     Log.d("DetectionService", "App $it is blocked")
+
+                    val pass = MainApplication.instance.blockRepository.getLatestBlockPass(it)
+                    if (pass != null) {
+                        if (pass.expiry >= System.currentTimeMillis()) {
+                            Log.d("DetectionService", "Valid pass found")
+                            return
+                        }
+                    }
+
                     performIntervention(it)
                 }
             }

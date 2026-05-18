@@ -1,4 +1,4 @@
-package me.bertilfrigaard.tether.ui.screens.intervention.interventionhome
+package me.bertilfrigaard.tether.ui.screens.intervention.passdelay
 
 import android.content.Intent
 import androidx.compose.runtime.Composable
@@ -8,21 +8,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.bertilfrigaard.tether.ui.screens.intervention.InterventionViewModel
 
 @Composable
-fun InterventionHomeScreen(
-    sharedVm: InterventionViewModel,
-    onFinished: () -> Unit,
-    goToPassDelay: () -> Unit
+fun PassDelayScreen(
+    sharedVm: InterventionViewModel, onFinished: () -> Unit, onGoSetupPass: () -> Unit
 ) {
     val context = LocalContext.current
     val sharedState by sharedVm.uiState.collectAsStateWithLifecycle()
-    InterventionHomeContent(sharedState, onGoHome = {
+    PassDelayContent(sharedState = sharedState, onGoHome = {
         val home = Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_HOME)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         context.startActivity(home)
         onFinished()
-    }, onGrantPass = {
-        goToPassDelay()
-    })
+    }, onGoSetupPass = onGoSetupPass)
 }

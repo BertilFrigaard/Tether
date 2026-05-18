@@ -18,6 +18,18 @@ val Geist: FontFamily = FontFamily(
 
 data class TetherTypography(
     /**
+     * Used for big intervention message
+     * fx. "STOP"
+     */
+    val bam: TextStyle = TextStyle(
+        fontFamily = Geist,
+        fontWeight = FontWeight.Bold,
+        fontSize = 140.sp,
+        lineHeight = 34.sp,
+        letterSpacing = (-8).sp,
+    ),
+
+    /**
      * Page hero / big numbers.
      * Use for the question that opens a screen ("What should we tether down?")
      * and for prominent metrics ("1h 42m saved today").
@@ -114,6 +126,14 @@ data class TetherTypography(
      * Use for any tappable control with a label. Keep buttons to a single
      * line; if it wraps, your button is too narrow or the label too long.
      */
+    val bigButton: TextStyle = TextStyle(
+        fontFamily = Geist,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp,
+        lineHeight = 18.sp,
+        letterSpacing = (-0.1).sp,
+    ),
+
     val button: TextStyle = TextStyle(
         fontFamily = Geist,
         fontWeight = FontWeight.SemiBold,

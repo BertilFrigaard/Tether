@@ -8,3 +8,9 @@ sealed interface InterventionNavKey : NavKey
 
 @Serializable
 data object InterventionHome : InterventionNavKey
+
+@Serializable
+data object PassDelay : InterventionNavKey
+
+@Serializable
+data object SetupPass : InterventionNavKey

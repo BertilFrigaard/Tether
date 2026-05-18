@@ -6,13 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [BlockEntity::class, BlockMemberEntity::class],
+    entities = [BlockEntity::class, BlockMemberEntity::class, BlockPassEntity::class],
     version = 1,
     exportSchema = true
 )
 abstract class TetherDatabase : RoomDatabase() {
     abstract fun blockDao(): BlockDao
     abstract fun blockMemberDao(): BlockMemberDao
+    abstract fun blockPassDao(): BlockPassDao
 
     companion object {
         @Volatile
