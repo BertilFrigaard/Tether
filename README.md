@@ -6,12 +6,12 @@ Tether is a native Android productivity app that gives you softer, smarter contr
 The idea is to make it easier to build intentional phone habits without feeling like you're fighting your own device.
 
 <div align="center">
-  <img width="150" alt="Screenshot_2026-05-28-16-16-05-02_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/fe27c254-b75c-468c-a3ae-8e1da1539906" />
-<img width="150" alt="Screenshot_2026-05-28-16-17-24-11_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/2e49a458-eee4-441a-8059-b38a65d87958" />
-<img width="150" alt="Screenshot_2026-05-28-16-17-39-89_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/1626075f-99f4-4a9b-a5f1-8e733a35ab09" />
-<img width="150" alt="Screenshot_2026-05-28-16-18-01-87_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/bb5e95a7-46af-4652-9380-e3f92853c30e" />
-<img width="150" alt="Screenshot_2026-05-28-16-18-07-23_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/f5de032c-f0d8-4e12-8296-223a339d18e9" />
-<img width="150" alt="Screenshot_2026-05-28-16-19-14-19_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/0f8921df-7f27-4546-aba9-1a9927de21ae" />
+  <img width="200" alt="Screenshot_2026-05-28-16-16-05-02_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/fe27c254-b75c-468c-a3ae-8e1da1539906" />
+<img width="200" alt="Screenshot_2026-05-28-16-17-24-11_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/2e49a458-eee4-441a-8059-b38a65d87958" />
+<img width="200" alt="Screenshot_2026-05-28-16-17-39-89_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/1626075f-99f4-4a9b-a5f1-8e733a35ab09" />
+<img width="200" alt="Screenshot_2026-05-28-16-18-01-87_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/bb5e95a7-46af-4652-9380-e3f92853c30e" />
+<img width="200" alt="Screenshot_2026-05-28-16-18-07-23_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/f5de032c-f0d8-4e12-8296-223a339d18e9" />
+<img width="200" alt="Screenshot_2026-05-28-16-19-14-19_daccfd32d90aeb4b0e9d6e4faba881e8" src="https://github.com/user-attachments/assets/0f8921df-7f27-4546-aba9-1a9927de21ae" />
 </div>
 
 ---
