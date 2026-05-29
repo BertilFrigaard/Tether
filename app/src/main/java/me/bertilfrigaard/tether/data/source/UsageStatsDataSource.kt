@@ -3,6 +3,7 @@ package me.bertilfrigaard.tether.data.source
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
+import android.icu.util.Calendar
 import android.util.Log
 
 class UsageStatsDataSource(private val context: Context) {
@@ -33,6 +34,39 @@ class UsageStatsDataSource(private val context: Context) {
         }
 
         return lastPkg
+    }
+
+    fun getUsageToday(pkg: String): Long {
+        val usageStatsManager = context.getSystemService(UsageStatsManager::class.java)
+        if (usageStatsManager == null) {
+            Log.e("UsageStatsDataSource", "UsageStatsManager is null")
+            return 0L
+        }
+
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        val startOfDay = calendar.timeInMillis
+        val now = System.currentTimeMillis()
+
+        val stats = usageStatsManager.queryUsageStats(
+            UsageStatsManager.INTERVAL_DAILY,
+            startOfDay,
+            now
+        )
+
+        val pkgStats = stats.find { it.packageName == pkg }
+
+        if (pkgStats == null) {
+            Log.w("UsageStatsDataSource", "Package $pkg not found in usage stats")
+            return 0L
+        }
+
+        return pkgStats.totalTimeInForeground + now - pkgStats.lastTimeUsed
     }
 
     companion object {

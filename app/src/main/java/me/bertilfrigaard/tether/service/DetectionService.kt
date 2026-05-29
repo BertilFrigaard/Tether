@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import me.bertilfrigaard.tether.InterventionActivity
 import me.bertilfrigaard.tether.MainApplication
 import me.bertilfrigaard.tether.R
+import me.bertilfrigaard.tether.data.model.BlockCondition
 
 class DetectionService : Service() {
     private val handler = Handler(Looper.getMainLooper())
@@ -40,9 +41,21 @@ class DetectionService : Service() {
             foregroundApp?.let {
                 val block = MainApplication.instance.blockRepository.getBlock(it)
 
-                if (block?.enabled == true) {
-                    Log.d("DetectionService", "App $it is blocked")
+                if (block?.enabled != true) return
+                Log.d("DetectionService", "App $it is blocked")
 
+                // If blockCondition = AFTER_DAILY_USAGE_LIMIT check daily usage
+                if (block.blockCondition == BlockCondition.AFTER_DAILY_USAGE_LIMIT) {
+                    val usageToday = MainApplication.instance.usageStatsDataSource.getUsageToday(it)
+                    Log.d("DetectionService", "Usage today: $usageToday")
+                    if (usageToday < block.dailyUsageLimit * 60 * 1000) {
+                        Log.d("DetectionService", "Usage limit not reached.")
+                        return
+                    }
+                }
+
+                // If block allows for passes, check for valid passes
+                if (block.allowPass) {
                     val pass = MainApplication.instance.blockRepository.getLatestBlockPass(it)
                     if (pass != null) {
                         if (pass.expiry >= System.currentTimeMillis()) {
@@ -50,9 +63,10 @@ class DetectionService : Service() {
                             return
                         }
                     }
-
-                    performIntervention(it)
                 }
+
+                // App is blocked, perform intervention
+                performIntervention(it)
             }
         }
 
