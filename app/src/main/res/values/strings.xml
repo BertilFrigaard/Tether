@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Tether</string>
+    <string name="accessibility_service_description">This service is used for blocking specific content within apps</string>
 </resources>
