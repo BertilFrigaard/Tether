@@ -10,12 +10,14 @@ import kotlinx.coroutines.launch
 import me.bertilfrigaard.tether.MainApplication
 import me.bertilfrigaard.tether.data.model.AppInfo
 import me.bertilfrigaard.tether.data.model.Block
+import me.bertilfrigaard.tether.data.model.BlockPass
 
 data class InterventionUiState(
     val isLoading: Boolean = true,
     val appInfo: AppInfo? = null,
     val block: Block? = null,
-    val passLengthMin: Int = 1
+    val latestPass: BlockPass? = null,
+    val passLength: Int = 5
 )
 
 class InterventionViewModel(private val pkg: String) : ViewModel() {
@@ -29,22 +31,24 @@ class InterventionViewModel(private val pkg: String) : ViewModel() {
         viewModelScope.launch {
             val app = appsDataSource.getApp(pkg)
             val block = blockRepository.getBlock(pkg)
+            val latestPass = blockRepository.getLatestBlockPass(pkg)
             _uiState.value = InterventionUiState(
                 isLoading = false,
                 appInfo = app,
-                block = block
+                block = block,
+                latestPass = latestPass
             )
         }
     }
 
-    fun setPassLength(lengthMin: Int) {
-        _uiState.value = _uiState.value.copy(passLengthMin = lengthMin)
+    fun setPassLength(length: Int) {
+        _uiState.value = _uiState.value.copy(passLength = length)
     }
 
     fun createPass(cbk: () -> Unit) {
         uiState.value.appInfo?.let {
             _uiState.update { state -> state.copy(isLoading = true) }
-            val expiryMs = System.currentTimeMillis() + uiState.value.passLengthMin * 60 * 1000
+            val expiryMs = System.currentTimeMillis() + uiState.value.passLength * 60 * 1000
             viewModelScope.launch {
                 blockRepository.createBlockPass(it.packageName, expiryMs)
                 cbk()

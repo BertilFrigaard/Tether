@@ -13,7 +13,7 @@ import me.bertilfrigaard.tether.ui.components.input.StepperInput
 import me.bertilfrigaard.tether.ui.theme.TetherTheme
 
 @Composable
-fun StepperSubSection(value: Int, setValue: (Int) -> Unit, label: String, description: String) {
+fun StepperSubSection(value: Int, setValue: (Int) -> Unit, min: Int? = null, max: Int? = null, label: String, description: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,6 +32,6 @@ fun StepperSubSection(value: Int, setValue: (Int) -> Unit, label: String, descri
                 color = TetherTheme.colors.ink2
             )
         }
-        StepperInput(value, setValue)
+        StepperInput(value, setValue, min, max)
     }
 }

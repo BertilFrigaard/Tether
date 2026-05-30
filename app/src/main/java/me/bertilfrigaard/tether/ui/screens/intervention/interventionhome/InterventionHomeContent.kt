@@ -1,10 +1,7 @@
 package me.bertilfrigaard.tether.ui.screens.intervention.interventionhome
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -37,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import me.bertilfrigaard.tether.R
 import me.bertilfrigaard.tether.data.model.BlockCondition
 import me.bertilfrigaard.tether.ui.screens.intervention.InterventionUiState
+import me.bertilfrigaard.tether.ui.screens.intervention.interventionhome.components.OptionButton
 import me.bertilfrigaard.tether.ui.theme.TetherTheme
 
 @Composable
@@ -176,44 +174,30 @@ fun InterventionHomeContent(
             } else {
                 Spacer(Modifier.height(40.dp))
             }
-            if (optionsExpanded && sharedState.block?.allowPass == true) {
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .padding(bottom = 25.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(TetherTheme.colors.surface)
-                        .border(
-                            BorderStroke(1.dp, TetherTheme.colors.hairline),
-                            RoundedCornerShape(16.dp)
-                        )
-                        .padding(horizontal = 35.dp, vertical = 14.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        modifier = Modifier.clickable(
-                            onClick = onGrantPass, indication = null, interactionSource = null
-                        )
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = "Grant a limited pass",
-                                style = TetherTheme.typography.bodyEmphasis,
-                                color = TetherTheme.colors.ink
-                            )
-                            Text(
-                                text = "Let you use $appLabel for a limited time more. ",
-                                style = TetherTheme.typography.body,
-                                color = TetherTheme.colors.ink2
-                            )
-                        }
-                        Icon(
-                            painter = painterResource(R.drawable.arrow_forward_24px),
-                            contentDescription = "Grant pass icon",
-                            tint = TetherTheme.colors.ink2
-                        )
-                    }
+            if (optionsExpanded) {
+                val now = System.currentTimeMillis()
+                val passOnCooldown = sharedState.latestPass?.let {
+                    it.createdAt + ((sharedState.block?.passCooldown?.times(60)?.times(1000)) ?: 0) >= now
+                } == true
+
+                if (sharedState.block?.allowPass != true) {
+                    OptionButton(
+                        "Grant a limited pass",
+                        "You can not grant passes for $appLabel.",
+                        disabled = true
+                    )
+                } else if (passOnCooldown) {
+                    OptionButton(
+                        "Grant a limited pass",
+                        "You recently granted a pass for $appLabel. Please wait before trying again.",
+                        disabled = true
+                    )
+                } else {
+                    OptionButton(
+                        "Grant a limited pass",
+                        "Let you use $appLabel for a limited time more.",
+                        onGrantPass
+                    )
                 }
             }
         }

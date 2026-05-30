@@ -82,7 +82,7 @@ fun SetupPassContent(
                             color = TetherTheme.colors.ink2
                         )
                     }
-                    StepperInput(sharedState.passLengthMin, setPassLength)
+                    StepperInput(sharedState.passLength, setPassLength, 1, sharedState.block?.maxPassLength)
                 }
                 HorizontalDivider(
                     color = TetherTheme.colors.hairline, modifier = Modifier.padding(14.dp)

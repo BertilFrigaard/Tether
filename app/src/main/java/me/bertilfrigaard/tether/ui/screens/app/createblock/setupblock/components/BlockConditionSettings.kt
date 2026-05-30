@@ -134,6 +134,8 @@ fun BlockConditionSettings(
             StepperSubSection(
                 dailyUsage,
                 setDailyUsage,
+                1,
+                1440, // 24 hours in minutes
                 "Daily usage limit",
                 "Minutes before first block intervention"
             )

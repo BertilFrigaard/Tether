@@ -21,38 +21,31 @@ import androidx.compose.ui.unit.sp
 import me.bertilfrigaard.tether.ui.theme.TetherTheme
 
 @Composable
-fun StepperInput(value: Int, setValue: (Int) -> Unit) {
+fun StepperInput(value: Int, setValue: (Int) -> Unit, min: Int? = null, max: Int? = null) {
     val rowShape = RoundedCornerShape(8.dp)
     Row(
         modifier = Modifier
             .clip(rowShape)
             .border(
                 BorderStroke(
-                    1.dp,
-                    TetherTheme.colors.hairline
-                ),
-                rowShape
+                    1.dp, TetherTheme.colors.hairline
+                ), rowShape
             )
             .background(TetherTheme.colors.surface2)
             .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         StepperButton(
-            "-",
-            TetherTheme.colors.surface2,
-            TetherTheme.colors.ink
-        ) { setValue(value - 1) }
+            "-", TetherTheme.colors.surface2, TetherTheme.colors.ink
+        ) { if (value > (min ?: Int.MIN_VALUE)) setValue(value - 1) }
 
         Text(
-            modifier = Modifier.padding(horizontal = 6.dp),
-            text = value.toString()
+            modifier = Modifier.padding(horizontal = 6.dp), text = value.toString()
         )
 
         StepperButton(
-            "+",
-            TetherTheme.colors.ink,
-            TetherTheme.colors.accentInk
-        ) { setValue(value + 1) }
+            "+", TetherTheme.colors.ink, TetherTheme.colors.accentInk
+        ) { if (value < (max ?: Int.MAX_VALUE)) setValue(value + 1) }
     }
 }
 

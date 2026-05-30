@@ -86,6 +86,8 @@ fun BlockPassSettings(
             StepperSubSection(
                 passCooldown,
                 setPassCooldown,
+                0,
+                720, // 12 hours in minutes
                 "Pass cooldown",
                 "Minutes before another pass can be granted"
             )
@@ -97,6 +99,8 @@ fun BlockPassSettings(
             StepperSubSection(
                 delayPassGrant,
                 setDelayPassGrant,
+                0,
+                600, // 10 minutes in seconds
                 "Delay pass grant",
                 "Seconds before a pass is granted"
             )
@@ -108,6 +112,8 @@ fun BlockPassSettings(
             StepperSubSection(
                 maxPassLength,
                 setMaxPassLength,
+                0,
+                120, // 2 hours in minutes
                 "Max pass length",
                 "Max length of a pass in minutes"
             )
